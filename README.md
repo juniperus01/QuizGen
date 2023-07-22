@@ -16,6 +16,6 @@ This can be used for self-analysis, question paper generation, and evaluation, t
 These entities are good candidate questions and are ranked based on their TF-IDF score ( a metric used to weigh a word across multiple documents )
 4. For generating incorrect options, a Word2Vec model implemented in gensim is used to find the top 10 similar entities for a given entity. We then pick the least 4 entities as alternate options. We can also pick words from the given text itself if the entity is not present in the model vocabulary.
 
-#Demo Link
+# Demo Link
 Here is a demo of the project:
 https://drive.google.com/file/d/1Q1S7hwuqbp6dv7MRy5-UaFrsRTQDzzhZ/view
