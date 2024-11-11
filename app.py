@@ -67,4 +67,5 @@ def result():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.getenv("PORT", 5000))  # Use Render's port or default to 5000
+    app.run(debug=True, host="0.0.0.0", port=port)
