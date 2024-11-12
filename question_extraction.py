@@ -105,7 +105,7 @@ class QuestionExtractor:
         self.sentence_for_max_word_score = dict()
 
         tf_idf_vector = self.vectorizer.fit_transform(self.filtered_sentences)
-        feature_names = self.vectorizer.get_feature_names()
+        feature_names = self.vectorizer.get_feature_names_out()
         tf_idf_matrix = tf_idf_vector.todense().tolist()
 
         num_sentences = len(self.unfiltered_sentences)
