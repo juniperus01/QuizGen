@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/quiz.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quiz.css') }}" />
     <link rel="shortcut icon" href="https://img.freepik.com/premium-vector/qg-logo_745848-50.jpg?w=740&amp;v=4"
         type="image/x-icon">
     <link rel="stylesheet"
@@ -43,7 +43,7 @@
         </div>
     </nav>
     {% if uploaded == true %}
-    <form action="https://quizgen-5fhu.onrender.com/result" method="POST">
+    <form action="{{ request.url_root }}result" method="POST">
         {% for i in range(size) %}
         <section class="section-1" id="section-1">
             <main>
@@ -76,7 +76,6 @@
         <h1>Could not upload file</h1>
     </section>
     {% endif %}
- 
 </body>
 
 </html>

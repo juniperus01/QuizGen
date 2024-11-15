@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" />
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
   <link rel="shortcut icon" href="https://img.freepik.com/premium-vector/qg-logo_745848-50.jpg?w=740&amp;v=4" type="image/x-icon">
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
@@ -41,7 +41,7 @@
       <div class="card has-text-centered">
         <img src="https://thumbs.dreamstime.com/b/pdf-txt-file-icon-vector-185084573.jpg"
           alt="upload"/>
-        <form action="https://quizgen-5fhu.onrender.com/quiz" method="POST" enctype="multipart/form-data">
+        <form id="quiz-form" method="POST" enctype="multipart/form-data">
           <div id="file-js-example" class="file has-name is-fullwidth">
             <label class="file-label">
               <input class="file-input" type="file" name="file" accept=".txt, application/pdf" />
@@ -66,6 +66,9 @@
               fileName.textContent = fileInput.files[0].name;
             }
           };
+
+          // Set the action dynamically to point to /quiz
+          document.getElementById("quiz-form").action = window.location.origin + "/quiz";
         </script>
         <button class="button has-text-centered is-large is-fullwidth is-dark">
           <span class="submit has-text-centered" type="submit" name="upload file">Submit</span>
@@ -74,9 +77,9 @@
         </button>
       </form>
     </div>
-    
   </main>
-  <script>const button = document.querySelector('.button');
+  <script>
+    const button = document.querySelector('.button');
     const submit = document.querySelector('.submit');
 
     function toggleClass() {

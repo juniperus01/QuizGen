@@ -57,7 +57,7 @@ def store_extracted_text_in_db(title, file_type, content):
         connection.close()
 
 
-def txt2questions(doc: str, n=15, o=4) -> dict:
+def txt2questions(doc: str, n=5, o=4) -> dict:
     """ Get all questions and options """
 
     qGen = QuestionGeneration(n, o)
