@@ -2,15 +2,11 @@ import os
 from flask import Flask, render_template, redirect, url_for
 from flask.globals import request
 from werkzeug.utils import secure_filename
-from workers import pdf2text, txt2questions
-
-# Constants
-UPLOAD_FOLDER = './pdf/'
+from workers import file2text, store_extracted_text_in_db, txt2questions
 
 
 # Init an app object
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @ app.route('/')
@@ -26,28 +22,23 @@ def quiz():
     UPLOAD_STATUS = False
     questions = dict()
 
-    # Make directory to store uploaded files, if not exists
-    if not os.path.isdir('./pdf'):
-        os.mkdir('./pdf')
-
     if request.method == 'POST':
         try:
             # Retrieve file from request
             uploaded_file = request.files['file']
-            file_path = os.path.join(
-                app.config['UPLOAD_FOLDER'],
-                secure_filename(
-                    uploaded_file.filename))
-            file_exten = uploaded_file.filename.rsplit('.', 1)[1].lower()
+            filename, file_exten = os.path.splitext(uploaded_file.filename)
+            file_exten = file_exten[1:].lower()
 
-            # Save uploaded file
-            uploaded_file.save(file_path)
             # Get contents of file
-            uploaded_content = pdf2text(file_path, file_exten)
+            uploaded_content = file2text(uploaded_file, file_exten)
+
+            # Save contents in database
+            is_stored = store_extracted_text_in_db(filename, file_exten, uploaded_content)
+
             questions = txt2questions(uploaded_content)
 
             # File upload + convert success
-            if uploaded_content is not None:
+            if uploaded_content is not None and is_stored:
                 UPLOAD_STATUS = True
         except Exception as e:
             print(e)
